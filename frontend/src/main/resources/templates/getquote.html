@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>From JayJav</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--<script src="/js/postrequest.js"></script>-->
+    <!--<script src="/js/getrequest.js"></script>-->
+
+</head>
+<body>
+
+<div class="container">
+
+    <h3 style="color:blue">This project get stock price(in real-time)</h3>
+
+    <!--<div class="col-sm-7" id="postResultDiv">-->
+    <!--</div>-->
+
+    <form class="form-inline" th:action="@{/getquote}"
+          th:object="${getquote}" method="post" style="margin:20px 20px 20px 20px" id="customerForm">
+    <div class="col-sm-7" style="margin:20px 0px 20px 0px">
+        <div class="form-group">
+            <label for="getquote" style="margin-right:5px">Enter Username to get the User's Quotes:</label>
+            <input type="text" class="form-control" th:field="*{userName}" id="getquote" placeholder="Enter Username"/>
+        </div>
+        <button type="submit" class="btn btn-primary">Get Quotes</button>
+        <div th:if="${getquotereponse}" th:text="${getquotereponse}" th:class="${'alert ' + alertClass}"/>
+    </div>
+    </form>
+
+    <div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>
+                    Username
+                </th>
+                <th>
+                    Qoute
+                </th>
+                <th>
+                    Price
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="getquote : ${getquote}">
+                <td th:text="${getquote.getUserName()}"></td>
+                <td th:text="${getquote.getQuote()}"></td>
+                <td th:text="${getquote.getPrice()}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+</div>
+</body>
+</html>
